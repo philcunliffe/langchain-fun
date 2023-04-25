@@ -1,0 +1,25 @@
+{
+  "name": "langchain-test",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "go": "node build/index.js",
+    "chat": "node build/chat.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/prompt": "^1.1.5",
+    "dotenv": "^16.0.3",
+    "hnswlib-node": "^1.4.2",
+    "langchain": "^0.0.63",
+    "pdf-parse": "^1.1.1",
+    "prompt": "^1.3.0",
+    "typescript": "^5.0.4"
+  }
+}
