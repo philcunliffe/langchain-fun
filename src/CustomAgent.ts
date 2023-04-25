@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import {
   AgentActionOutputParser,
   AgentExecutor,
@@ -85,6 +88,7 @@ class CustomPromptTemplate extends BaseChatPromptTemplate {
 
 class CustomOutputParser extends AgentActionOutputParser {
   async parse(text: string): Promise<AgentAction | AgentFinish> {
+    console.log('in parse');
     if (text.includes("Final Answer:")) {
       const parts = text.split("Final Answer:");
       const input = parts[parts.length - 1].trim();
@@ -111,7 +115,7 @@ class CustomOutputParser extends AgentActionOutputParser {
 
 export const run = async () => {
   const model = new ChatOpenAI({ temperature: 0 });
-  const vectorChain = await getChain(model);
+  const vectorChain = await getChain();
   const vectorStoreTool = new ChainTool({
     name: "5e-srd-and-spells",
     description:
@@ -145,10 +149,13 @@ export const run = async () => {
   const executor = new AgentExecutor({
     agent,
     tools,
+    verbose: true,
+    returnIntermediateSteps: true,
+    maxIterations: 15,
   });
   console.log("Loaded agent.");
 
-  const input = `Who is Olivia Wilde's boyfriend? What is his current age raised to the 0.23 power?`;
+  const input = `Does an attack roll of 15 hit a manticore in D&D 5e?`;
 
   console.log(`Executing with input "${input}"...`);
 
